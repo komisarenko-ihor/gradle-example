@@ -1,5 +1,7 @@
 plugins {
     id("java")
+    id("com.diffplug.spotless")
+//    id("com.autonomousapps.dependency-analysis") <-- plugin for analysing dependencies
 }
 
 java {
