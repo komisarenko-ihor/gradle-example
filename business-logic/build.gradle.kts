@@ -4,11 +4,11 @@ plugins {
 
 dependencies {
     // dependency to platform project (gradle/platform)
-    implementation(platform("com.example:platform"))
+//    implementation(platform("com.example:platform"))
 
     implementation(project(":data-model"))
-    api("org.apache.commons:commons-lang3")
-    implementation("org.slf4j:slf4j-api")
+    api(libs.commons.lang)
+    implementation(libs.slf4j.api)
 
 //    api("group:name") // <- Dependency is transitively visible at compilation
 
