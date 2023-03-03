@@ -33,11 +33,15 @@ tasks.register<Zip>("bundle") {
     destinationDirectory.set(layout.buildDirectory.dir("distribution"))
 }
 
+// adding task to lifecycle task
 tasks.build {
+    group = "Some Group 1"
     dependsOn(tasks.named("bundle"))
 }
 
+// creating a lifecycle task
 tasks.register("buildAll") {
+    group = "Some Group 2"
     description = "Builds even more!"
 
     dependsOn(tasks.build)
