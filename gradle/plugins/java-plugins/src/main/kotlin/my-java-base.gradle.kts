@@ -1,7 +1,17 @@
+import com.example.gradle.Slf4jSimpleRule
+
 plugins {
     id("java")
     id("com.diffplug.spotless")
 //    id("com.autonomousapps.dependency-analysis") <-- plugin for analysing dependencies
+}
+
+/*
+    Adjust dependencies
+    to see dependency graph call ./gradlew :app:dependencies --configuration runtimeClasspath
+ */
+dependencies.components {
+    withModule<Slf4jSimpleRule>("org.slf4j:slf4j-simple")
 }
 
 java {
