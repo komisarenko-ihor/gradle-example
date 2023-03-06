@@ -8,6 +8,7 @@ javaPlatform.allowDependencies()
 dependencies {
     // BOM - Bill Of Material (list of dependencies.constrains)
     api(platform("com.fasterxml.jackson:jackson-bom:2.13.3"))
+    api(platform("org.junit:junit-bom:5.8.2"))
 }
 
 dependencies.constraints {

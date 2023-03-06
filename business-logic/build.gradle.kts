@@ -4,11 +4,24 @@ plugins {
 
 dependencies {
     // dependency to platform project (gradle/platform)
-//    implementation(platform("com.example:platform"))
+    implementation(platform("com.example:platform"))
 
     implementation(project(":data-model"))
-    api(libs.commons.lang)
-    implementation(libs.slf4j.api)
+//    api(libs.commons.lang) <-- in case when we use libs.versions.toml
+    api("org.apache.commons:commons-lang3")
+//    implementation(libs.slf4j.api) <-- in case when we use libs.versions.toml
+    implementation("org.slf4j:slf4j-api")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    // after creating sourceSets.create("integrationTest") we can add dependencies for this source
+    integrationTestImplementation("org.junit.jupiter:junit-jupiter-api")
+    integrationTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+
+//    testRuntimeOnly("")
+//    testCompileOnly("")
 
 //    api("group:name") // <- Dependency is transitively visible at compilation
 

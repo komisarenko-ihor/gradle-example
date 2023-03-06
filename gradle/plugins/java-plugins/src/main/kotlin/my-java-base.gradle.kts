@@ -6,6 +6,15 @@ plugins {
 //    id("com.autonomousapps.dependency-analysis") <-- plugin for analysing dependencies
 }
 
+// we can configure sources
+sourceSets.main {
+//    java.setSrcDirs(listOf(layout.projectDirectory.dir("sources")))
+}
+sourceSets.test {
+
+}
+sourceSets.create("integrationTest") // <-- after that we can add new SourceSet folders test/integrationTest and
+
 /*
     Adjust dependencies
     to see dependency graph call ./gradlew :app:dependencies --configuration runtimeClasspath
@@ -31,9 +40,33 @@ tasks.withType<JavaCompile>().configureEach {
 //}
 
 tasks.test {
+    useJUnitPlatform {
+        includeTags("slow") // <-- this setting is used with // to split test tasks #1
+    }
 
+    maxParallelForks = 4
+
+    maxHeapSize = "1g"
 }
 
-tasks.javadoc {
+// to split test tasks #1
+tasks.register<Test>("testSlow") {
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
 
+    useJUnitPlatform {
+        includeTags("slow")
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.named("testSlow"))
+}
+
+// to split test tasks #2
+tasks.register<Test>("integrationTest") {
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+
+    useJUnitPlatform ()
 }
